@@ -12,6 +12,8 @@ Please use this starter template to answer the following questions:
 
 完成Step 2之后，了解了如何通过坐标转换生成BEV-map，然后得出intensity layer和height layer，以及density layer，将三个layer类比成RGB layer，这样就可以应用Computer Vision领域的pre-trained model了。
 
+完成Step 3之后，通过观察生成的objects_in_bev_labels_in_camera图，发现liDar对远处的车辆识别不出来（因为没有形成点云），但是相对于图像识别技术对建筑物的误识别现象，liDar技术不会出现这个问题。 labels vs. detected objects_screenshot_08.12.2022-1.png
+
 ### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)? 
 
 
