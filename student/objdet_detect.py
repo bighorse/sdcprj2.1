@@ -218,6 +218,8 @@ def detect_objects(input_bev_maps, model, configs):
                                 outputs['dim'], K=configs.K)
             detections = detections.cpu().numpy().astype(np.float32)
             detections = post_processing(detections, configs)
+            detections = detections[0]  # only first batch
+            detections = detections[1]
             #######
             ####### ID_S3_EX1-5 END #######     
 
@@ -229,10 +231,9 @@ def detect_objects(input_bev_maps, model, configs):
     print("student task ID_S3_EX2")
     objects = [] 
     ## step 1 : check whether there are any detections
-    detections = detections[0]  # only first batch
-    if len(detections[1]) > 0:
+    if len(detections) > 0:
         ## step 2 : loop over all detections
-        for det in detections[1]:
+        for det in detections:
             # extract detection
             _score, _x, _y, _z, _h, _w, _l, _yaw = det
             # convert from metric into pixel coordinates
