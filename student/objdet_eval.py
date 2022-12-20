@@ -83,20 +83,13 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.5)
     
     ## step 1 : compute the total number of positives present in the scene
     all_positives  = 0
-    for label in labels:
-        if label.type==1:
+    for idx, label in enumerate(labels):
+        if label.type == 1 and labels_valid[idx] == True:
             all_positives += 1
      ## step 2 : compute the number of false negatives
-    false_negatives = 0
-    for idx, label in enumerate(labels):
-        if label.type == 1 and labels_valid[idx] == False:
-            false_negatives += 1
+    false_negatives = all_positives - true_positives
     ## step 3 : compute the number of false positives
-    false_positives = 0
-    for idx, label in enumerate(labels):
-        if labels_valid[idx] == True and label.type != 1:
-            false_positives += 1
-    
+    false_positives = len(detections) - true_positives
     #######
     ####### ID_S4_EX2 END #######     
     
@@ -135,7 +128,8 @@ def compute_performance_stats(det_performance_all, configs_det):
     #######    
     ####### ID_S4_EX3 END #######     
     print('precision = ' + str(precision) + ", recall = " + str(recall))   
-    # first run precision = 1.0, recall = 0.47163695299837927
+    # precision = 1.0, recall = 0.47163695299837927
+    # precision = 0.9540983606557377, recall = 0.9509803921568627
     # serialize intersection-over-union and deviations in x,y,z
     ious_all = [element for tupl in ious for element in tupl]
     devs_x_all = []
